@@ -1,9 +1,12 @@
+package com.atividade.model.services;
+
 /*
  * Interface para implementação da classe "Ordenacao".
  * O método booleano deve retornar 'false' se 'numeros' não estiver ordenado (crescente). 
  * Os métodos de ordenação são long em vez de void, pois devem retornar o tempo demandado.
  */
-public interface Ordenacao_IF {
+
+ public interface Ordenacao_IF {
 	
 	boolean checaVetorOrdenado(int[] numeros);
 	

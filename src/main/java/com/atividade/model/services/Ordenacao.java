@@ -1,3 +1,5 @@
+package com.atividade.model.services;
+
 public class Ordenacao implements Ordenacao_IF{
 
     @Override
