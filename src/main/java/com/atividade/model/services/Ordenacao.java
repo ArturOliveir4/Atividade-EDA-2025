@@ -1,5 +1,8 @@
 package com.atividade.model.services;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class Ordenacao implements Ordenacao_IF{
 
     @Override
@@ -15,6 +18,8 @@ public class Ordenacao implements Ordenacao_IF{
 
     @Override
     public long bubbleSort(int[] vetor){
+        long inicio = System.nanoTime();
+
         int n = vetor.length;
         for(int i=0; i < n-1; i++){
             for(int j=0; j < n-i-1; j++){
@@ -23,7 +28,10 @@ public class Ordenacao implements Ordenacao_IF{
                 }
             }
         }
-        return 1;
+
+        long fim = System.nanoTime();
+
+        return fim - inicio;
     }
 
     public static void swap(int[] vetor, int i, int j){
@@ -31,19 +39,11 @@ public class Ordenacao implements Ordenacao_IF{
         vetor[i] = vetor[j];
         vetor[j] = temp;
     }
+	
+    @Override
+    public long mergeSort(int[] vetor){
+        long inicio = System.nanoTime();
 
-    @Override
-    public long selectionSort(int[] numeros){
-        return -1;
-    }
-	
-    @Override
-	public long insertionSort(int[] numeros){
-        return -1;
-    }
-	
-    @Override
-    public long mergeSort(int[] vetor) {
         int n = vetor.length;
         
         if(n <= 1){
@@ -53,7 +53,9 @@ public class Ordenacao implements Ordenacao_IF{
         int[] vetorExtra = new int[n];
         mergeSortRec(vetor, vetorExtra, 0, n-1);
         
-        return 1;
+        long fim = System.nanoTime();
+
+        return fim - inicio;
     }
 
     public void mergeSortRec(int[] vetor, int[] vetorExtra, int inicio, int fim){
@@ -94,8 +96,13 @@ public class Ordenacao implements Ordenacao_IF{
 
     @Override
 	public long quickSort(int[] vetor){
+        long inicio = System.nanoTime();
+
         quickSort(vetor, 0, vetor.length - 1);
-        return 1;
+
+        long fim = System.nanoTime();
+
+        return fim - inicio;
     }
 
     public void quickSort(int[] vetor, int esquerda, int direita){
@@ -128,18 +135,82 @@ public class Ordenacao implements Ordenacao_IF{
     }
 	
     @Override
-	public long random_quickSort(int[] numeros){
-        return 1;
+	public long random_quickSort(int[] vetor){
+        long inicio = System.nanoTime();
+    
+        shuffle(vetor);
+        quickSort(vetor, 0, vetor.length - 1);
+        
+        long fim = System.nanoTime();
+
+        return fim - inicio;
+    }
+
+    public void shuffle(int[] vetor){
+        Random rnd = new Random();
+
+        for(int i = vetor.length - 1; i > 0; i--){
+            int j = rnd.nextInt(i+1); // i+1 por causa do funcionamento do método nextInt que vai até o elemento do parâmetro-1
+            swap(vetor, i, j);
+        }
     }
 	
     @Override
-	public long quickSort_Java(int[] numeros){
-        return 1;
+	public long quickSort_Java(int[] vetor){
+        long inicio = System.nanoTime();
+    
+        Arrays.sort(vetor);
+        
+        long fim = System.nanoTime();
+        
+        return fim - inicio;
     }
 	
     @Override
-	public long countingSort(int[] numeros){
-        return 1;
+	public long countingSort(int[] vetor){
+        long inicio = System.nanoTime();
+
+        int n = vetor.length;
+
+        int maximo = vetor[0];
+        for(int numero : vetor){
+            if(numero > maximo){
+                maximo = numero;
+            }
+        }
+
+        int[] vetorOrdenado = new int[n];
+        int[] vetorContagem = new int[maximo + 1];
+
+        for(int numero : vetor){
+            vetorContagem[numero]++;
+        }
+
+        for(int i = 1; i <= maximo; i++){
+            vetorContagem[i] += vetorContagem[i-1];
+        }
+
+        for(int i = n - 1; i >= 0; i--){
+            vetorOrdenado[vetorContagem[vetor[i]]-1] = vetor[i];
+            vetorContagem[vetor[i]]--;
+        }
+
+        // Cópia do array ordenado para o original/inicial
+        System.arraycopy(vetorOrdenado, 0, vetor, 0, n);
+
+        long fim = System.nanoTime();
+
+        return fim - inicio;
+    }
+
+    @Override
+    public long selectionSort(int[] numeros){
+        return -1;
+    }
+	
+    @Override
+	public long insertionSort(int[] numeros){
+        return -1;
     }
 
 }
