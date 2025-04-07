@@ -108,7 +108,7 @@ public class Ordenacao implements Ordenacao_IF{
     public void quickSort(int[] vetor, int esquerda, int direita){
         if(esquerda < direita){
             int pivo = partition(vetor, esquerda, direita);
-            quickSort(vetor, direita, pivo-1);
+            quickSort(vetor, esquerda, pivo-1);
             quickSort(vetor, pivo+1, direita);
         }
         
@@ -204,13 +204,43 @@ public class Ordenacao implements Ordenacao_IF{
     }
 
     @Override
-    public long selectionSort(int[] numeros){
-        return -1;
+    public long selectionSort(int[] numeros) {
+        long inicio = System.nanoTime();
+    
+        int n = numeros.length;
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (numeros[j] < numeros[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i) {
+                swap(numeros, i, minIndex);
+            }
+        }
+    
+        long fim = System.nanoTime();
+        return fim - inicio;
     }
-	
+    
     @Override
-	public long insertionSort(int[] numeros){
-        return -1;
-    }
+    public long insertionSort(int[] numeros) {
+        long inicio = System.nanoTime();
+    
+        int n = numeros.length;
+        for (int i = 1; i < n; i++) {
+            int chave = numeros[i];
+            int j = i - 1;
+            while (j >= 0 && numeros[j] > chave) {
+                numeros[j + 1] = numeros[j];
+                j--;
+            }
+            numeros[j + 1] = chave;
+        }
+    
+        long fim = System.nanoTime();
+        return fim - inicio;
+    }    
 
 }
