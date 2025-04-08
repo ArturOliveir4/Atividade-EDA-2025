@@ -114,7 +114,7 @@ public class Ordenacao implements Ordenacao_IF{
         
     }
 
-    private int partition(int[] vetor, int esquerda, int direita) {
+    public int partition(int[] vetor, int esquerda, int direita){
         int j = direita;
         int p = vetor[esquerda];
         int i = esquerda+1;
@@ -205,42 +205,12 @@ public class Ordenacao implements Ordenacao_IF{
 
     @Override
     public long selectionSort(int[] numeros) {
-        long inicio = System.nanoTime();
-    
-        int n = numeros.length;
-        for (int i = 0; i < n - 1; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < n; j++) {
-                if (numeros[j] < numeros[minIndex]) {
-                    minIndex = j;
-                }
-            }
-            if (minIndex != i) {
-                swap(numeros, i, minIndex);
-            }
-        }
-    
-        long fim = System.nanoTime();
-        return fim - inicio;
+        return -1;
     }
     
     @Override
     public long insertionSort(int[] numeros) {
-        long inicio = System.nanoTime();
-    
-        int n = numeros.length;
-        for (int i = 1; i < n; i++) {
-            int chave = numeros[i];
-            int j = i - 1;
-            while (j >= 0 && numeros[j] > chave) {
-                numeros[j + 1] = numeros[j];
-                j--;
-            }
-            numeros[j + 1] = chave;
-        }
-    
-        long fim = System.nanoTime();
-        return fim - inicio;
+        return -1;
     }    
 
 }
